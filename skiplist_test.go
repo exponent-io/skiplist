@@ -176,6 +176,14 @@ func TestT_Remove(t *testing.T) {
 	}
 }
 
+func TestT_RemoveWhenEmpty(t *testing.T) {
+	t.Parallel()
+	s := New()
+	if s.Remove(-1) != nil {
+		t.Error("Removing key from an empty list should fail.")
+	}
+}
+
 func TestT_RemoveElement(t *testing.T) {
 	t.Parallel()
 	l := skiplist(0, 10)
