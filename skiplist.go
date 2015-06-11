@@ -323,6 +323,9 @@ func (l *T) RemoveN(index int) *Element {
 func (l *T) ElementPos(key interface{}) (e *Element, pos int) {
 	s := l.score(key)
 	prev, pos := l.prevs(key, s)
+	if l.cnt == 0 {
+		return nil, -1
+	}
 	elem := prev[0].link.to
 	if elem == nil || s < elem.score || s == elem.score && l.less(key, elem.key) {
 		return nil, -1

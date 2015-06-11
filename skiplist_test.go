@@ -242,6 +242,15 @@ func TestT_ElementPos(t *testing.T) {
 	}
 }
 
+func TestT_ElementPosEmpty(t *testing.T) {
+	t.Parallel()
+	l := New()
+	e, pos := l.ElementPos(0)
+	if e != nil || pos != -1 {
+		t.Fail()
+	}
+}
+
 func TestT_Element_forward(t *testing.T) {
 	t.Parallel()
 	s := skiplist(0, 9)
