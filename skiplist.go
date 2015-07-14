@@ -315,7 +315,7 @@ func (l *T) RemoveN(index int) *Element {
 	return l.remove(prevs, elem)
 }
 
-// Element returns the youngest list element for key and its position,
+// ElementPos returns the youngest list element for key and its position.
 // If there is no match, nil and -1 are returned.
 //
 // Consider using Get or GetAll instead if you only want Values.
@@ -329,6 +329,22 @@ func (l *T) ElementPos(key interface{}) (e *Element, pos int) {
 	elem := prev[0].link.to
 	if elem == nil || s < elem.score || s == elem.score && l.less(key, elem.key) {
 		return nil, -1
+	}
+	return elem, pos
+}
+
+// FindPos returns the youngest list element that is greater than or equal to key
+// and its position.
+// If there is no such element, nil and the length of the list are returned.
+func (l *T) FindPos(key interface{}) (e *Element, pos int) {
+	s := l.score(key)
+	prev, pos := l.prevs(key, s)
+	if l.cnt == 0 {
+		return nil, l.cnt
+	}
+	elem := prev[0].link.to
+	if elem == nil {
+		return nil, l.cnt
 	}
 	return elem, pos
 }

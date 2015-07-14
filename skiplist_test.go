@@ -242,6 +242,25 @@ func TestT_ElementPos(t *testing.T) {
 	}
 }
 
+func TestT_FindPos(t *testing.T) {
+	t.Parallel()
+	l := skiplist(1, 10)
+	for i := 1; i < 10; i++ {
+		e, pos := l.FindPos(i)
+		if e == nil || pos != i-1 {
+			t.Fail()
+		}
+	}
+	e, pos := l.FindPos(0)
+	if e == nil || pos != 0 {
+		t.Fail()
+	}
+	e, pos = l.FindPos(11)
+	if e != nil || pos != 10 {
+		t.Fail()
+	}
+}
+
 func TestT_ElementPosEmpty(t *testing.T) {
 	t.Parallel()
 	l := New()
